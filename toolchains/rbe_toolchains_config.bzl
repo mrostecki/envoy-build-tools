@@ -42,11 +42,27 @@ _GCC_ENV = {
     "PATH": "/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/llvm/bin",
 }
 
+_GCC_CROSS_AARCH64_ENV = {
+    "BAZEL_COMPILER": "/usr/bin/aarch64-linux-gnu-gcc",
+    "GCOV": "/usr/bin/aarch64-linux-gnu-gcov",
+    "CC": "/usr/bin/aarch64-linux-gnu-gcc",
+    "CXX": "/usr/bin/aarch64-linux-gnu-g++",
+    "PATH": "/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/llvm/bin",
+}
+
 _MSVC_CL_ENV = {}
 
 _CLANG_CL_ENV = {}
 
 _TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX = {
+    "container_registry": _ENVOY_BUILD_IMAGE_REGISTRY,
+    "container_repo": _ENVOY_BUILD_IMAGE_REPOSITORY_LINUX,
+    "output_base": _CONFIGS_OUTPUT_BASE_LINUX,
+    "repo_name": "envoy_build_tools",
+    "toolchain_config_suite_autogen_spec": _generated_toolchain_config_suite_autogen_spec_linux,
+}
+
+_TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX_CROSS_AARCH64 = {
     "container_registry": _ENVOY_BUILD_IMAGE_REGISTRY,
     "container_repo": _ENVOY_BUILD_IMAGE_REPOSITORY_LINUX,
     "output_base": _CONFIGS_OUTPUT_BASE_LINUX,
@@ -99,5 +115,6 @@ def rbe_toolchains_config(generator = False, force = False):
     _envoy_rbe_toolchain("rbe_ubuntu_clang", _CLANG_ENV, "clang", _TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX, _ENVOY_BUILD_IMAGE_DIGEST_LINUX, linux_exec_properties, generator, force)
     _envoy_rbe_toolchain("rbe_ubuntu_clang_libcxx", _CLANG_LIBCXX_ENV, "clang_libcxx", _TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX, _ENVOY_BUILD_IMAGE_DIGEST_LINUX, linux_exec_properties, generator, force)
     _envoy_rbe_toolchain("rbe_ubuntu_gcc", _GCC_ENV, "gcc", _TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX, _ENVOY_BUILD_IMAGE_DIGEST_LINUX, linux_exec_properties, generator, force)
+    _envoy_rbe_toolchain("rbe_ubuntu_gcc_cross_aarch64", _GCC_CROSS_AARCH64_ENV, "gcc", _TOOLCHAIN_CONFIG_SUITE_SPEC_LINUX_CROSS_AARCH64, _ENVOY_BUILD_IMAGE_DIGEST_LINUX, linux_exec_properties, generator, force)
     _envoy_rbe_toolchain("rbe_windows_msvc_cl", _MSVC_CL_ENV, "msvc-cl", _TOOLCHAIN_CONFIG_SUITE_SPEC_WINDOWS, _ENVOY_BUILD_IMAGE_DIGEST_WINDOWS, {}, generator, force)
     _envoy_rbe_toolchain("rbe_windows_clang_cl", _CLANG_CL_ENV, "clang-cl", _TOOLCHAIN_CONFIG_SUITE_SPEC_WINDOWS, _ENVOY_BUILD_IMAGE_DIGEST_WINDOWS, {}, generator, force)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 export RBE_AUTOCONF_ROOT=$(bazel info workspace)
 
@@ -29,7 +29,7 @@ cp -vf "${RBE_AUTOCONF_ROOT}/toolchains/empty.bzl" "${RBE_AUTOCONF_ROOT}/toolcha
 
 case ${OS_FAMILY} in
   linux)
-    RBE_BAZEL_TARGET_LIST="@rbe_ubuntu_clang_gen//... @rbe_ubuntu_clang_libcxx_gen//... @rbe_ubuntu_gcc_gen//..."
+    RBE_BAZEL_TARGET_LIST="@rbe_ubuntu_clang_gen//... @rbe_ubuntu_clang_libcxx_gen//... @rbe_ubuntu_gcc_gen//... @rbe_ubuntu_gcc_cross_aarch64_gen//..."
     ;;
   windows)
     RBE_BAZEL_TARGET_LIST="@rbe_windows_msvc_cl_gen//... @rbe_windows_clang_cl_gen//..."
